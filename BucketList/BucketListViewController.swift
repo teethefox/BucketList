@@ -73,6 +73,13 @@ class BucketListViewController: UITableViewController, AddItemTableViewControlle
        print("selected")
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let item = items[indexPath.row]
+        managedObjectContext.delete(item)
+        do{
+            try managedObjectContext.save()
+        }catch {
+            print ("\(error)")
+        }
         items.remove(at: indexPath.row)
         tableView.reloadData()
     }
